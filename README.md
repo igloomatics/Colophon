@@ -5,7 +5,7 @@
 **An academic homepage set like a paper.**<br>
 One YAML file, one BibTeX file, zero build. Free on GitHub Pages.
 
-[**Live demo**](https://YOUR-GITHUB-NAME.github.io/colophon/) · [**Try both looks**](https://YOUR-GITHUB-NAME.github.io/colophon/preview/) · [**Use this template**](../../generate) · [中文说明](README.zh-CN.md)
+[**Live demo**](https://igloomatics.github.io/Colophon/) · [**Try both looks**](https://igloomatics.github.io/Colophon/preview/) · [**Use this template**](../../generate) · [中文说明](README.zh-CN.md)
 
 <br>
 

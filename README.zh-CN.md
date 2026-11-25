@@ -5,7 +5,7 @@
 **像论文一样排版的学术主页。**<br>
 一个 YAML，一个 BibTeX，零构建，免费托管在 GitHub Pages。
 
-[**在线演示**](https://YOUR-GITHUB-NAME.github.io/colophon/?lang=zh) · [**对比两种外观**](https://YOUR-GITHUB-NAME.github.io/colophon/preview/) · [**使用这个模板**](../../generate) · [English](README.md)
+[**在线演示**](https://igloomatics.github.io/Colophon/?lang=zh) · [**对比两种外观**](https://igloomatics.github.io/Colophon/preview/) · [**使用这个模板**](../../generate) · [English](README.md)
 
 <br>
 
