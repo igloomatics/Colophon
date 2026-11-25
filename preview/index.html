@@ -351,7 +351,8 @@
     const SIZE = { desktop: [1280, 800], phone: [390, 760] };
     function fit() {
       const [w, h] = SIZE[S.device];
-      const avail = device.clientWidth - (S.device === 'phone' ? 18 : 0);
+      // clientWidth is already inside the phone's border, so it is exactly the screen width.
+      const avail = screen.clientWidth;
       const k = Math.min(1, avail / w);
       frame.style.width = `${w}px`; frame.style.height = `${h}px`;
       frame.style.transform = `scale(${k})`;
