@@ -1,0 +1,79 @@
+# ──────────────────────────────────────────────────────────────────────────
+#  中文版（可选）。只写和 config.yml 不同的字段，其余自动沿用英文版。
+#  有了这个文件，顶部导航栏会出现“中 / EN”切换按钮。
+#  列表（news、sections、interests）会整体替换，所以要写全。
+# ──────────────────────────────────────────────────────────────────────────
+
+role: 计算机科学博士生
+affiliation: "[嗷嗷大学](https://example.edu)"
+location: 嗷嗷镇
+advisor:
+  - name: 面包教授
+    url: https://example.edu/~bread
+
+about: |
+  我目前是[嗷嗷大学](https://example.edu)计算机学院博士生，导师是[面包教授](https://example.edu/~bread)。
+  此前，我在[喵喵大学](https://example.org)获得计算机科学学士学位，GPA 3.90/4.00，专业排名 2/300。
+
+  在科研中，我聚焦于**大语言模型的可解释性**，并且关注这些解释是否真的能帮到依赖模型的**人**。
+  我喜欢“先让模型可被检查，再让它变得有用”的哲学，并且相信：一个无法被追问的模型，不值得被完全信任。
+  如果你的工作和这些方向有交集，欢迎[联系我](mailto:mochi@example.edu)。
+
+callout: 我正在寻找 **2027 年的业界研究岗位**，方向是可解释性与人机协作。
+
+interests: [可解释性, 人机交互, 模型评测, 因果推理]
+
+news:
+  show: 4
+  items:
+    - date: 2026-11
+      text: 发布 [CounterBench v2](https://example.com)，新增 40 个解释任务。
+    - date: 2026-09
+      text: "*Glass-Box Agents* 获得 NeurIPS 2026 **口头报告**，圣地亚哥见。"
+    - date: 2026-06
+      text: 加入 Example Labs 对齐团队实习。
+    - date: 2026-03
+      text: 在喵喵机器学习研讨会做了关于“忠实解释”的报告。
+    - date: 2026-01
+      text: 两篇论文被 ICLR 2026 接收。
+    - date: 2025-12
+      text: 获得研究生国家奖学金。
+    - date: 2025-08
+      text: 通过博士资格考试。
+
+sections:
+  - title: 经历
+    id: experience
+    items:
+      - date: 2026.06 – 2026.09
+        title: 研究实习生，**Example Labs**
+        detail: 对齐团队 · 导师 Priya Raman
+      - date: 2024.09 – 至今
+        title: 博士生，**嗷嗷大学**
+        detail: 计算机学院 · 导师面包教授
+      - date: 2023.07 – 2023.09
+        title: 科研助理，**喵喵大学自然语言处理组**
+        detail: 研究小型语言模型中句法信息的探针分类器
+      - date: 2020.09 – 2024.06
+        title: 计算机科学学士，**喵喵大学**
+        detail: GPA 3.90/4.00 · 专业排名 2/300
+
+  - title: 获奖
+    id: awards
+    items:
+      - date: 2026
+        title: Example Labs 博士生激励奖学金，**嗷嗷大学**
+      - date: 2025
+        title: 研究生国家奖学金，**嗷嗷大学**
+      - date: 2024
+        title: 校级优秀毕业生，**喵喵大学**
+      - date: 2023
+        title: ICPC 亚洲区域赛，**银牌**
+      - date: 2022
+        title: 国家奖学金，**喵喵大学**
+
+  - title: 学术服务
+    id: service
+    markdown: |
+      审稿：NeurIPS（2025、2026）、ICLR（2026）、CHI（2026）。
+      嗷嗷机器学习读书会联合组织者。

@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Colophon · an academic homepage set like a paper</title>
+  <meta name="description" content="A zero-build academic homepage template: one YAML file, one BibTeX file, two looks, published free on GitHub Pages.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Colophon · an academic homepage set like a paper">
+  <meta property="og:description" content="One YAML file, one BibTeX file, zero build. Two looks: Margin and Catalog.">
+  <!-- Link-preview image. Scrapers need a full URL, so fill in your own once the repo is live:
+  <meta property="og:image" content="https://YOUR-GITHUB-NAME.github.io/colophon/preview/shots/social.jpg">
+  <meta name="twitter:card" content="summary_large_image"> -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%238c2f1f'/%3E%3Ctext x='32' y='45' font-family='Georgia,serif' font-size='38' text-anchor='middle' fill='%23fbfaf7'%3EC%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400..600&family=Instrument+Sans:ital,wght@0,400..700;1,400..600&family=IBM+Plex+Mono:wght@400;500&family=Noto+Serif+SC:wght@400..700&display=swap">
+  <style>
+    :root {
+      --bg: #fbfaf7; --card: #ffffff; --ink: #1d1c1a; --ink-2: #45433f; --muted: #8b877f;
+      --rule: #e7e3db; --rule-2: #d6d1c6; --accent: #8c2f1f; --on-accent: #fbfaf7;
+      --desk: #f1eee8; --shadow: 0 1px 2px rgb(30 25 20 / .06), 0 18px 50px -12px rgb(30 25 20 / .22);
+      --serif: "Newsreader", Georgia, "Noto Serif SC", "Songti SC", serif;
+      --sans: "Instrument Sans", "Helvetica Neue", Arial, "Noto Serif SC", "Songti SC", sans-serif;
+      --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+      color-scheme: light;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #161514; --card: #1f1e1c; --ink: #ecebe7; --ink-2: #c4c1ba; --muted: #8a867e;
+        --rule: #2e2c29; --rule-2: #3d3a36; --accent: #e0806b; --on-accent: #161514;
+        --desk: #1c1b19; --shadow: 0 1px 2px rgb(0 0 0 / .3), 0 18px 50px -12px rgb(0 0 0 / .6);
+        color-scheme: dark;
+      }
+    }
+    :root[data-theme="dark"] {
+      --bg: #161514; --card: #1f1e1c; --ink: #ecebe7; --ink-2: #c4c1ba; --muted: #8a867e;
+      --rule: #2e2c29; --rule-2: #3d3a36; --accent: #e0806b; --on-accent: #161514;
+      --desk: #1c1b19; --shadow: 0 1px 2px rgb(0 0 0 / .3), 0 18px 50px -12px rgb(0 0 0 / .6);
+      color-scheme: dark;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; }
+    body {
+      margin: 0; background: var(--bg); color: var(--ink-2);
+      font: 400 1.0625rem/1.65 var(--sans);
+      -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+    }
+    h1, h2, h3, p { margin: 0; }
+    a { color: inherit; }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+    [hidden] { display: none !important; }
+    .wrap { width: min(72rem, 100% - 2rem); margin-inline: auto; }
+
+    /* top bar */
+    .top { position: sticky; top: 0; z-index: 10; background: color-mix(in oklab, var(--bg) 82%, transparent); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid transparent; transition: border-color .2s; }
+    .top.scrolled { border-bottom-color: var(--rule); }
+    .top .wrap { display: flex; align-items: center; gap: 1.5rem; height: 3.5rem; }
+    .brand { font: 600 1.25rem/1 var(--serif); color: var(--ink); text-decoration: none; letter-spacing: -.01em; }
+    .top nav { margin-left: auto; display: flex; align-items: center; gap: 1.25rem; font-size: .95rem; }
+    .top nav a { color: var(--muted); text-decoration: none; transition: color .15s; }
+    .top nav a:hover { color: var(--ink); }
+    .lang { font: inherit; color: var(--muted); background: none; border: 1px solid var(--rule-2); border-radius: 999px; padding: .1rem .65rem; cursor: pointer; }
+    .lang:hover { color: var(--ink); border-color: var(--muted); }
+
+    /* hero */
+    .hero { padding: 5.5rem 0 3rem; text-align: center; }
+    .eyebrow { font: 500 .78rem/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--accent); }
+    .hero h1 { margin-top: 1.1rem; font: 600 clamp(3.2rem, 9vw, 5.6rem)/1 var(--serif); color: var(--ink); letter-spacing: -.025em; }
+    .lede { max-width: 38rem; margin: 1.4rem auto 0; font: 400 clamp(1.15rem, 2.4vw, 1.35rem)/1.55 var(--serif); color: var(--ink-2); }
+    .lede em { color: var(--ink); }
+    .cta { display: flex; justify-content: center; flex-wrap: wrap; gap: .75rem; margin-top: 2.2rem; }
+    .btn { display: inline-flex; align-items: center; gap: .5rem; padding: .7rem 1.25rem; border-radius: 999px; font: 500 .98rem/1 var(--sans); text-decoration: none; border: 1px solid var(--rule-2); color: var(--ink); background: var(--card); transition: transform .15s, border-color .15s, background .15s; }
+    .btn:hover { border-color: var(--muted); transform: translateY(-1px); }
+    .btn.primary { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+    .btn.primary:hover { background: color-mix(in oklab, var(--accent) 88%, var(--ink)); }
+    .btn svg { width: 1.05em; height: 1.05em; }
+
+    /* live stage */
+    .stage { padding: 1rem 0 5rem; }
+    .controls { display: flex; flex-wrap: wrap; justify-content: center; gap: .75rem 1.75rem; margin-bottom: 1.5rem; }
+    .ctl { display: flex; align-items: center; gap: .6rem; }
+    .ctl-label { font: 500 .72rem/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+    .seg { position: relative; display: inline-flex; padding: 3px; border-radius: 999px; background: color-mix(in oklab, var(--ink) 6%, var(--bg)); }
+    .seg button { position: relative; z-index: 1; font: 500 .9rem/1 var(--sans); color: var(--muted); background: none; border: 0; padding: .5rem .95rem; border-radius: 999px; cursor: pointer; transition: color .2s; }
+    .seg button[aria-pressed="true"] { color: var(--ink); }
+    .seg .pill { position: absolute; top: 3px; bottom: 3px; left: 0; border-radius: 999px; background: var(--card); box-shadow: 0 1px 3px rgb(0 0 0 / .12); transition: transform .3s cubic-bezier(.2,.8,.2,1), width .3s cubic-bezier(.2,.8,.2,1); }
+
+    .desk { position: relative; border-radius: 22px; background: var(--desk); border: 1px solid var(--rule); padding: clamp(.75rem, 3vw, 2.5rem); overflow: hidden; }
+    .device { margin-inline: auto; background: var(--card); box-shadow: var(--shadow); overflow: hidden; transition: width .45s cubic-bezier(.2,.8,.2,1), border-radius .45s; }
+    .device.desktop { width: 100%; border-radius: 12px; }
+    .device.phone { width: min(408px, 100%); border-radius: 34px; border: 9px solid #1b1a19; }
+    .chrome { display: flex; align-items: center; gap: .45rem; height: 2.3rem; padding: 0 .9rem; border-bottom: 1px solid var(--rule); background: color-mix(in oklab, var(--ink) 3%, var(--card)); }
+    .device.phone .chrome { display: none; }
+    .chrome i { width: .68rem; height: .68rem; border-radius: 50%; background: var(--rule-2); }
+    .chrome .url { margin-left: 1rem; flex: 1; max-width: 22rem; height: 1.45rem; border-radius: 6px; background: var(--bg); color: var(--muted); font: 400 .78rem/1.45rem var(--mono); padding: 0 .7rem; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+    .screen { position: relative; overflow: hidden; background: #fbfaf7; }
+    .screen iframe { position: absolute; top: 0; left: 0; border: 0; transform-origin: 0 0; background: transparent; transition: opacity .25s; }
+    .screen iframe.loading { opacity: 0; }
+    .caption { max-width: 40rem; margin: 1.6rem auto 0; text-align: center; color: var(--ink-2); font-size: 1rem; }
+    .caption strong { font: 600 1.1rem/1 var(--serif); color: var(--ink); margin-right: .35rem; }
+    .caption code { font: .88em var(--mono); color: var(--accent); }
+    .caption a { color: var(--accent); }
+
+    /* sections */
+    section.block { padding: 4.5rem 0; border-top: 1px solid var(--rule); }
+    .block h2 { font: 600 clamp(1.8rem, 4vw, 2.4rem)/1.15 var(--serif); color: var(--ink); letter-spacing: -.015em; }
+    .block .sub { margin-top: .6rem; max-width: 36rem; color: var(--muted); }
+    .steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; margin-top: 2.5rem; counter-reset: s; }
+    .step { padding: 1.5rem; border: 1px solid var(--rule); border-radius: 14px; background: var(--card); }
+    .step::before { counter-increment: s; content: counter(s); display: grid; place-items: center; width: 2rem; height: 2rem; border-radius: 50%; border: 1px solid var(--accent); color: var(--accent); font: 600 1rem/1 var(--serif); }
+    .step h3 { margin-top: 1rem; font: 600 1.15rem/1.3 var(--serif); color: var(--ink); }
+    .step p { margin-top: .45rem; font-size: .97rem; }
+    .step code { font: .86em var(--mono); white-space: nowrap; color: var(--ink); background: color-mix(in oklab, var(--ink) 6%, var(--bg)); padding: .08rem .35rem; border-radius: 4px; }
+    pre.code { margin: 1.25rem 0 0; padding: 1.1rem 1.25rem; border-radius: 14px; background: #1f1e1c; color: #e9e6df; font: .86rem/1.7 var(--mono); overflow-x: auto; }
+    pre.code .c { color: #8f8a80; }
+    pre.code .k { color: #e0a08f; }
+    .split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 3rem; align-items: start; }
+
+    .features { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 2rem 1.75rem; margin-top: 2.5rem; }
+    .feature h3 { font: 600 1.08rem/1.3 var(--serif); color: var(--ink); padding-top: .9rem; border-top: 1px solid var(--rule-2); }
+    .feature p { margin-top: .4rem; font-size: .95rem; color: var(--ink-2); }
+
+    footer { padding: 2.5rem 0 3rem; border-top: 1px solid var(--rule); color: var(--muted); font-size: .9rem; }
+    footer .wrap { display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; justify-content: space-between; }
+    footer a { color: var(--ink-2); }
+
+    :lang(zh) .lede, :lang(zh) .caption, :lang(zh) .step p, :lang(zh) .feature p { line-height: 1.8; }
+
+    @media (max-width: 900px) {
+      .steps, .split { grid-template-columns: 1fr; }
+      .features { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 560px) {
+      .top nav .hide-sm { display: none; }
+      .hero { padding-top: 3.5rem; }
+      .features { grid-template-columns: 1fr; }
+      .ctl { width: 100%; justify-content: space-between; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="top" id="top">
+    <div class="wrap">
+      <a class="brand" href="#">Colophon</a>
+      <nav>
+        <a href="../" data-i18n="navDemo">Full demo</a>
+        <a class="hide-sm" href="#start" data-i18n="navStart">Get started</a>
+        <a class="repo-link" href="#" hidden>GitHub</a>
+        <button class="lang" type="button" id="lang" aria-label="切换到中文">中</button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap">
+        <p class="eyebrow" data-i18n="eyebrow">An academic homepage template</p>
+        <h1>Colophon</h1>
+        <p class="lede" data-i18n-html="lede">A homepage <em>set like a paper</em>. Write one YAML file, keep the BibTeX you already have, and publish free on GitHub Pages: nothing to install, nothing to build.</p>
+        <div class="cta">
+          <a class="btn primary repo-gen" href="#start">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M12 8v8M8 12h8"/></svg>
+            <span data-i18n="ctaUse">Use this template</span>
+          </a>
+          <a class="btn" href="../">
+            <span data-i18n="ctaDemo">Open the full demo</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="stage" aria-label="Live preview">
+      <div class="wrap">
+        <div class="controls">
+          <div class="ctl"><span class="ctl-label" data-i18n="look">Look</span>
+            <div class="seg" data-key="style" role="group" aria-label="Look">
+              <button type="button" data-v="margin" aria-pressed="true">Margin</button>
+              <button type="button" data-v="catalog" aria-pressed="false">Catalog</button>
+            </div></div>
+          <div class="ctl"><span class="ctl-label" data-i18n="device">Device</span>
+            <div class="seg" data-key="device" role="group" aria-label="Device">
+              <button type="button" data-v="desktop" aria-pressed="true" data-i18n="desktop">Desktop</button>
+              <button type="button" data-v="phone" aria-pressed="false" data-i18n="phone">Phone</button>
+            </div></div>
+          <div class="ctl"><span class="ctl-label" data-i18n="mode">Mode</span>
+            <div class="seg" data-key="mode" role="group" aria-label="Mode">
+              <button type="button" data-v="light" aria-pressed="true" data-i18n="light">Light</button>
+              <button type="button" data-v="dark" aria-pressed="false" data-i18n="dark">Dark</button>
+            </div></div>
+        </div>
+
+        <div class="desk">
+          <div class="device desktop" id="device">
+            <div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span class="url" id="url">mochi.github.io</span></div>
+            <div class="screen" id="screen">
+              <iframe id="frame" title="Colophon live preview"></iframe>
+            </div>
+          </div>
+        </div>
+        <p class="caption" id="caption"></p>
+      </div>
+    </section>
+
+    <section class="block" id="start">
+      <div class="wrap split">
+        <div>
+          <h2 data-i18n="startTitle">Live in three steps</h2>
+          <p class="sub" data-i18n="startSub">Everything happens on GitHub's website. No terminal, no package manager.</p>
+          <div class="steps" style="grid-template-columns: 1fr; gap: .9rem;">
+            <div class="step"><h3 data-i18n="s1t">Use the template</h3><p data-i18n-html="s1p">Click <em>Use this template</em> and name the new repository <code>your-name.github.io</code>.</p></div>
+            <div class="step"><h3 data-i18n="s2t">Edit two files</h3><p data-i18n-html="s2p">Fill in <code>config.yml</code>, paste your papers into <code>publications.bib</code>, drop a photo in <code>assets/</code>.</p></div>
+            <div class="step"><h3 data-i18n="s3t">Turn on Pages</h3><p data-i18n-html="s3p"><em>Settings → Pages → Deploy from a branch → main</em>. Every later commit updates the site.</p></div>
+          </div>
+        </div>
+        <div>
+<pre class="code"><span class="c"># config.yml</span>
+<span class="k">name:</span> Mochi Purrington
+<span class="k">name_alt:</span> 糯米喵            <span class="c"># shown on the Chinese page</span>
+<span class="k">role:</span> PhD Student in Computer Science
+<span class="k">affiliation:</span> "[Aoao University](https://example.edu)"
+<span class="k">avatar:</span> assets/avatar.webp
+<span class="k">email:</span> mochi@example.edu
+<span class="k">links:</span>
+  - { <span class="k">label:</span> Scholar, <span class="k">url:</span> "https://scholar.google.com/" }
+  - { <span class="k">label:</span> GitHub,  <span class="k">url:</span> "https://github.com/" }
+<span class="k">callout:</span> I'm on the **job market in 2027**.
+
+<span class="k">theme:</span>
+  <span class="k">style:</span> margin       <span class="c"># or: catalog</span></pre>
+<pre class="code"><span class="c">% publications.bib · straight from Google Scholar</span>
+@inproceedings{purrington2026glassbox,
+  title    = {Glass-Box Agents: Faithful Self-Explanation ...},
+  author   = {Purrington, Mochi and Okafor, Daniel and ...},
+  year     = {2026},
+  <span class="k">abbr</span>     = {NeurIPS},
+  <span class="k">award</span>    = {Oral Presentation (Top 1.2%)},
+  <span class="k">selected</span> = {true},
+}</pre>
+        </div>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="wrap">
+        <h2 data-i18n="featTitle">Small, and complete</h2>
+        <p class="sub" data-i18n="featSub">Everything an academic homepage needs, in about 100 KB of plain JavaScript and CSS.</p>
+        <div class="features">
+          <div class="feature"><h3 data-i18n="f1t">BibTeX in, papers out</h3><p data-i18n="f1p">Paste from Scholar, DBLP or Zotero. LaTeX accents, @string macros and equal-contribution marks just work; your name is bolded.</p></div>
+          <div class="feature"><h3 data-i18n="f2t">Search and filter</h3><p data-i18n="f2p">Press / to search titles, authors and venues as you type, with hits highlighted. Filter by topic.</p></div>
+          <div class="feature"><h3 data-i18n="f3t">Two languages, one switch</h3><p data-i18n="f3p">Add config.zh.yml with only the fields you want translated, and a 中 / EN button appears.</p></div>
+          <div class="feature"><h3 data-i18n="f4t">Pages, not a long scroll</h3><p data-i18n="f4p">Each top-bar item opens its own page with its own address, so Back, bookmarks and shared links work.</p></div>
+          <div class="feature"><h3 data-i18n="f5t">Dark mode and phones</h3><p data-i18n="f5p">Both looks follow the system theme, fit a phone screen, and print as a clean one-pager.</p></div>
+          <div class="feature"><h3 data-i18n="f6t">Quiet motion</h3><p data-i18n="f6p">A sliding top-bar highlight, frosted glass on scroll, content that rises in. Honors reduce-motion.</p></div>
+          <div class="feature"><h3 data-i18n="f7t">Friendly errors</h3><p data-i18n="f7p">A typo in YAML or BibTeX shows the file, the line and a hint instead of a blank page.</p></div>
+          <div class="feature"><h3 data-i18n="f8t">Zero build</h3><p data-i18n="f8p">No Node, no Ruby, no Jekyll. Two text files on any static host: GitHub Pages, Netlify, your department server.</p></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <span data-i18n="foot">MIT License · The sample person, papers and universities are fictional.</span>
+      <a href="../" data-i18n="footDemo">Open the full demo →</a>
+    </div>
+  </footer>
+
+  <script>
+  (() => {
+    // Leave '' to work it out from a GitHub Pages address (you.github.io/repo/preview/).
+    const REPO = '';
+
+    const T = {
+      en: {
+        navDemo: 'Full demo', navStart: 'Get started', eyebrow: 'An academic homepage template',
+        lede: 'A homepage <em>set like a paper</em>. Write one YAML file, keep the BibTeX you already have, and publish free on GitHub Pages: nothing to install, nothing to build.',
+        ctaUse: 'Use this template', ctaDemo: 'Open the full demo',
+        look: 'Look', device: 'Device', mode: 'Mode', desktop: 'Desktop', phone: 'Phone', light: 'Light', dark: 'Dark',
+        margin: '<strong>Margin</strong> Set like a paper: one text column, with dates, venues, your photo and links in the margin. The default, <code>style: margin</code>.',
+        catalog: '<strong>Catalog</strong> A library card catalogue: an author card with typed fields, every paper on a numbered index card, awards as red stamps. <code>style: catalog</code>.',
+        tryIt: 'Click around inside: it is the real page.',
+        startTitle: 'Live in three steps', startSub: "Everything happens on GitHub's website. No terminal, no package manager.",
+        s1t: 'Use the template', s1p: 'Click <em>Use this template</em> and name the new repository <code>your-name.github.io</code>.',
+        s2t: 'Edit two files', s2p: 'Fill in <code>config.yml</code>, paste your papers into <code>publications.bib</code>, drop a photo in <code>assets/</code>.',
+        s3t: 'Turn on Pages', s3p: '<em>Settings → Pages → Deploy from a branch → main</em>. Every later commit updates the site.',
+        featTitle: 'Small, and complete', featSub: 'Everything an academic homepage needs, in about 100 KB of plain JavaScript and CSS.',
+        f1t: 'BibTeX in, papers out', f1p: 'Paste from Scholar, DBLP or Zotero. LaTeX accents, @string macros and equal-contribution marks just work; your name is bolded.',
+        f2t: 'Search and filter', f2p: 'Press / to search titles, authors and venues as you type, with hits highlighted. Filter by topic.',
+        f3t: 'Two languages, one switch', f3p: 'Add config.zh.yml with only the fields you want translated, and a 中 / EN button appears.',
+        f4t: 'Pages, not a long scroll', f4p: 'Each top-bar item opens its own page with its own address, so Back, bookmarks and shared links work.',
+        f5t: 'Dark mode and phones', f5p: 'Both looks follow the system theme, fit a phone screen, and print as a clean one-pager.',
+        f6t: 'Quiet motion', f6p: 'A sliding top-bar highlight, frosted glass on scroll, content that rises in. Honors reduce-motion.',
+        f7t: 'Friendly errors', f7p: 'A typo in YAML or BibTeX shows the file, the line and a hint instead of a blank page.',
+        f8t: 'Zero build', f8p: 'No Node, no Ruby, no Jekyll. Two text files on any static host: GitHub Pages, Netlify, your department server.',
+        foot: 'MIT License · The sample person, papers and universities are fictional.', footDemo: 'Open the full demo →',
+        langBtn: '中', langLabel: '切换到中文',
+      },
+      zh: {
+        navDemo: '完整演示', navStart: '开始使用', eyebrow: '学术个人主页模板',
+        lede: '一个<em>像论文一样排版</em>的主页。写一个 YAML，用你现成的 BibTeX，免费发布在 GitHub Pages 上：不用安装，不用构建。',
+        ctaUse: '使用这个模板', ctaDemo: '打开完整演示',
+        look: '外观', device: '设备', mode: '模式', desktop: '电脑', phone: '手机', light: '浅色', dark: '深色',
+        margin: '<strong>Margin</strong>像论文一样排版：正文一栏，日期、会议、照片和链接写在页边。默认外观，<code>style: margin</code>。',
+        catalog: '<strong>Catalog</strong>图书馆目录卡：一张作者卡，每篇论文一张编号卡片，获奖像红色印章。<code>style: catalog</code>。',
+        tryIt: '可以直接在里面点击浏览，这就是真实的页面。',
+        startTitle: '三步上线', startSub: '全程在 GitHub 网页上完成，不用命令行，也不用装任何东西。',
+        s1t: '使用模板', s1p: '点击 <em>Use this template</em>，仓库名填 <code>你的用户名.github.io</code>。',
+        s2t: '改两个文件', s2p: '填好 <code>config.yml</code>，把论文贴进 <code>publications.bib</code>，照片放进 <code>assets/</code>。',
+        s3t: '打开 Pages', s3p: '<em>Settings → Pages → Deploy from a branch → main</em>。之后每次提交都会自动更新。',
+        featTitle: '小，但是完整', featSub: '学术主页需要的都有，只用约 100 KB 的原生 JavaScript 和 CSS。',
+        f1t: '直接读 BibTeX', f1p: '从 Scholar、DBLP、Zotero 复制即可。LaTeX 重音、@string 宏、共同一作标记都能正确显示，你的名字自动加粗。',
+        f2t: '搜索和筛选', f2p: '按 / 即可搜索标题、作者和会议，边输入边高亮匹配文字，还能按研究方向筛选。',
+        f3t: '一键中英切换', f3p: '新建 config.zh.yml，只写需要翻译的字段，导航栏就会出现“中 / EN”按钮。',
+        f4t: '按页切换', f4p: '导航栏每一项是独立的页面，有自己的网址，后退、收藏和分享链接都能用。',
+        f5t: '深色模式和手机', f5p: '两种外观都跟随系统深浅色，适配手机屏幕，打印出来是干净的一页。',
+        f6t: '克制的动效', f6p: '导航高亮块滑动，滚动后导航栏变成毛玻璃，内容依次浮现。尊重“减少动态效果”设置。',
+        f7t: '友好的报错', f7p: 'YAML 或 BibTeX 写错时，页面会指出哪个文件、第几行、怎么改，而不是一片空白。',
+        f8t: '零构建', f8p: '不需要 Node、Ruby 或 Jekyll。两个文本文件，放在任何静态托管上都能用。',
+        foot: 'MIT 许可证 · 演示中的人物、论文和学校均为虚构。', footDemo: '打开完整演示 →',
+        langBtn: 'EN', langLabel: 'Switch to English',
+      },
+    };
+
+    const store = { get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }, set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} } };
+    const S = {
+      style: 'margin', device: 'desktop', mode: 'light',
+      lang: store.get('colophon-preview-lang') === 'zh' ? 'zh' : 'en',
+    };
+    const $ = (s, r = document) => r.querySelector(s);
+    const frame = $('#frame'), screen = $('#screen'), device = $('#device');
+
+    // Repository links, worked out from the GitHub Pages address when REPO is empty.
+    let repo = REPO;
+    const gh = location.hostname.match(/^([\w-]+)\.github\.io$/i);
+    if (!repo && gh) {
+      const first = location.pathname.split('/').filter(Boolean)[0];
+      repo = `https://github.com/${gh[1]}/${first && first !== 'preview' ? first : `${gh[1]}.github.io`}`;
+    }
+    if (repo) {
+      document.querySelectorAll('.repo-link').forEach((a) => { a.href = repo; a.hidden = false; });
+      document.querySelectorAll('.repo-gen').forEach((a) => { a.href = `${repo}/generate`; });
+    }
+
+    // The preview is the real page, rendered at a fixed width and scaled to fit.
+    const SIZE = { desktop: [1280, 800], phone: [390, 760] };
+    function fit() {
+      const [w, h] = SIZE[S.device];
+      const avail = device.clientWidth - (S.device === 'phone' ? 18 : 0);
+      const k = Math.min(1, avail / w);
+      frame.style.width = `${w}px`; frame.style.height = `${h}px`;
+      frame.style.transform = `scale(${k})`;
+      screen.style.height = `${Math.round(h * k)}px`;
+    }
+    let last = '';
+    function load() {
+      const src = `../?style=${S.style}&mode=${S.mode}&lang=${S.lang}`;
+      if (src === last) return;
+      last = src;
+      frame.classList.add('loading');
+      frame.src = src;
+    }
+    frame.addEventListener('load', () => frame.classList.remove('loading'));
+
+    function pill(seg) {
+      let p = seg.querySelector('.pill');
+      if (!p) { p = document.createElement('span'); p.className = 'pill'; seg.prepend(p); }
+      const on = seg.querySelector('[aria-pressed="true"]');
+      p.style.width = `${on.offsetWidth}px`;
+      p.style.transform = `translateX(${on.offsetLeft}px)`;
+    }
+    const pills = () => document.querySelectorAll('.seg').forEach(pill);
+
+    function caption() {
+      const t = T[S.lang];
+      $('#caption').innerHTML = `${t[S.style]} ${t.tryIt}`;
+      $('#url').textContent = 'mochi.github.io' + (S.lang === 'zh' ? '/?lang=zh' : '');
+    }
+
+    function lang() {
+      const t = T[S.lang];
+      document.documentElement.lang = S.lang === 'zh' ? 'zh-CN' : 'en';
+      document.querySelectorAll('[data-i18n]').forEach((el) => { el.textContent = t[el.dataset.i18n]; });
+      document.querySelectorAll('[data-i18n-html]').forEach((el) => { el.innerHTML = t[el.dataset.i18nHtml]; });
+      const b = $('#lang'); b.textContent = t.langBtn; b.setAttribute('aria-label', t.langLabel);
+      caption(); pills(); load();
+    }
+
+    document.querySelectorAll('.seg').forEach((seg) => {
+      seg.addEventListener('click', (e) => {
+        const b = e.target.closest('button[data-v]');
+        if (!b) return;
+        S[seg.dataset.key] = b.dataset.v;
+        seg.querySelectorAll('button').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+        pill(seg);
+        if (seg.dataset.key === 'device') { device.className = `device ${S.device}`; fit(); }
+        else { load(); caption(); }
+      });
+    });
+    $('#lang').addEventListener('click', () => {
+      S.lang = S.lang === 'zh' ? 'en' : 'zh';
+      store.set('colophon-preview-lang', S.lang);
+      lang();
+    });
+
+    const top = $('#top');
+    addEventListener('scroll', () => top.classList.toggle('scrolled', scrollY > 8), { passive: true });
+    new ResizeObserver(() => { fit(); pills(); }).observe(device);
+    if (document.fonts) document.fonts.ready.then(pills);
+
+    // On a narrow screen a scaled-down desktop is unreadable, so start with the phone.
+    if (matchMedia('(max-width: 700px)').matches) $('[data-key="device"] [data-v="phone"]').click();
+    fit();
+    lang();
+  })();
+  </script>
+</body>
+</html>

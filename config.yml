@@ -1,0 +1,140 @@
+# ──────────────────────────────────────────────────────────────────────────
+#  Colophon · your homepage lives in this one file.
+#
+#  Edit, commit, and the page rebuilds itself — no build step, no tooling.
+#  Only `name` is required; delete anything you don't need.
+#  Text fields accept light Markdown: **bold**, *italic*, `code`, [link](url).
+# ──────────────────────────────────────────────────────────────────────────
+
+name: Mochi Purrington
+name_alt: 糯米喵                     # optional · your name in the other language; shown instead of `name` on the Chinese page
+pronouns: she/her                  # optional · shown with show.pronouns: true
+role: PhD Student in Computer Science
+affiliation: "[Aoao University](https://example.edu)"
+advisor:                           # optional · shown with show.advisor: true; `url` is optional
+  - name: Prof. Bread
+    url: https://example.edu/~bread
+
+avatar: assets/avatar.webp          # your photo, e.g. assets/avatar.jpg · leave empty for a monogram
+email: mochi@example.edu        # rendered by script, so naive scrapers never see it
+
+location: Aoao Town           # optional · shown with show.location: true
+# location_url: https://maps.google.com/?q=Aoao   # optional · makes the location a map link
+links:                             # shown as buttons under your name (icons are picked automatically)
+  - { label: Scholar, url: "https://scholar.google.com/" }
+  - { label: GitHub,  url: "https://github.com/" }
+  - { label: LinkedIn, url: "https://www.linkedin.com/" }
+  - { label: CV,      url: "#" }    # e.g. assets/cv.pdf — a link called CV also appears in the top bar
+
+# Extra profile lines. Off by default; set to true to show them.
+show:
+  advisor: false
+  location: false
+  pronouns: false
+
+# ── Look & feel ──────────────────────────────────────────────────────────
+# Quiet by default: ink on paper. Try options live by adding ?customize to
+# your site's URL (e.g. https://you.github.io/?customize), then paste the
+# snippet it gives you over this block. The panel only previews: visitors
+# see nothing different until you commit the change here.
+theme:
+  # accent: "#2f5db3" # optional colour for links; leave out for plain ink
+  style: margin       # margin (set like a paper, notes in the margin) · catalog (library index cards)
+  tabs: true          # true = each top-bar item opens its own page · false = one long scrolling page
+  nav: true           # the top bar (needed for tabs)
+  paper: plain        # plain · grid · dots
+  mode: auto          # auto · light · dark   (visitors can still toggle)
+  fonts: web          # web = Google Fonts · system = no external requests
+  # font_cdn: https://fonts.loli.net   # a Google Fonts mirror reachable from mainland China
+
+lang: en              # en · zh   (section headings and small labels)
+# Bilingual site: add config.zh.yml with only the fields you want translated
+# (see the sample next to this file). A 中 / EN switch then appears in the top bar.
+
+# Spellings of your name to highlight in author lists.
+me: [Mochi Purrington, M. Purrington]
+
+# ── Content ──────────────────────────────────────────────────────────────
+about: |
+  I'm a PhD student at the School of Computer Science, [Aoao University](https://example.edu),
+  advised by [Prof. Bread](https://example.edu/~bread).
+  Before that, I received my B.S. in Computer Science from [Meow University](https://example.org),
+  with a GPA of 3.90/4.00, ranking 2/300.
+
+  My research focuses on **interpretability of large language models**, and I care
+  about whether explanations actually help the **people** who rely on them.
+  I like the philosophy of *make it inspectable first, then make it useful*, and I
+  believe a model you cannot question is a model you should not fully trust.
+  If any of this overlaps with your work, [say hello](mailto:mochi@example.edu).
+
+# One line you want every visitor to see, e.g. that you're on the job market.
+callout: I'm on the **industry job market in 2027**, looking for research roles in interpretability and human–AI interaction.
+
+interests: [Interpretability, Human–AI interaction, Evaluation, Causal reasoning]
+
+news:
+  show: 4             # older items fold under “Show all”
+  items:
+    - date: 2026-11
+      text: Released [CounterBench v2](https://example.com) with 40 new explanation tasks.
+    - date: 2026-09
+      text: "*Glass-Box Agents* received an **oral** at NeurIPS 2026 — see you in San Diego."
+    - date: 2026-06
+      text: Started a research internship with the alignment team at Example Labs.
+    - date: 2026-03
+      text: Gave a talk on faithful explanations at the Meow ML Seminar.
+    - date: 2026-01
+      text: Two papers accepted to ICLR 2026.
+    - date: 2025-12
+      text: Received the National Scholarship for Graduate Students.
+    - date: 2025-08
+      text: Passed my qualifying exam.
+
+publications:
+  file: publications.bib
+  default: selected   # selected · all  (one-page mode; with tabs the home page shows Selected and the Publications page shows All)
+  previews: true      # show teaser images (the `preview` field in your .bib)
+
+# Extra sections, rendered after Publications in this order.
+# Each takes `items` (date · title · detail) or free-form `markdown`.
+sections:
+  - title: Experience
+    items:
+      - date: Jun 2026 – Sep 2026
+        title: Research Intern, **Example Labs**
+        detail: Alignment team · hosted by Priya Raman
+      - date: Sep 2024 – present
+        title: PhD Student, **Aoao University**
+        detail: School of Computer Science · advised by Prof. Bread
+      - date: Jul 2023 – Sep 2023
+        title: Research Assistant, **Meow NLP Group**
+        detail: Probing classifiers for syntax in small language models
+      - date: Sep 2020 – Jun 2024
+        title: B.S. in Computer Science, **Meow University**
+        detail: GPA 3.90/4.00 · ranked 2/300
+
+  - title: Awards
+    items:
+      - date: 2026
+        title: Example Labs PhD Fellowship, **Aoao University**
+      - date: 2025
+        title: National Scholarship for Graduate Students, **Aoao University**
+      - date: 2024
+        title: Outstanding Graduate, **Meow University**
+      - date: 2023
+        title: ICPC Asia Regional Contest, **Silver Medal**
+      - date: 2022
+        title: National Scholarship, **Meow University**
+
+  - title: Service
+    markdown: |
+      Reviewer for NeurIPS (2025, 2026), ICLR (2026), CHI (2026).
+      Co-organiser of the Aoao ML reading group.
+
+# Optional fine-tuning
+# order: [news, publications, experience, awards, service]   # sections below the header; the bio always sits under your name
+# menu: [about, publications, { label: Blog, url: "https://…" }]   # top-bar items; false hides them
+# short_name: Lin                # name shown in the top bar
+# footer: "© 2026 Mochi Purrington"
+# updated: auto       # auto · false · or a fixed date like 2026-11
+# credit: true        # “Built with Colophon” in the footer
